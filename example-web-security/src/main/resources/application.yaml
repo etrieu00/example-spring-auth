@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: development
+  main:
+    banner-mode: off
+  config:
+    import:
+      - datasource.yaml
+      - logging.yaml
+      - secret.yaml
+server:
+  port: 8080

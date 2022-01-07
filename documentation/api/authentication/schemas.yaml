@@ -1,0 +1,48 @@
+ErrorResponse:
+  type: object
+  properties:
+    status:
+      type: number
+      description: status code
+    endpoint:
+      type: string
+      description: requested endpoint
+    error:
+      type: string
+      description: error message
+Auth:
+  type: object
+  properties:
+    refresh:
+      type: string
+      description: refresh token
+    access:
+      type: string
+      description: access token
+SignUp:
+  type: object
+  properties:
+    firstname:
+      type: string
+      description: first name
+    lastname:
+      type: string
+      description: last name
+    phone:
+      type: string
+      description: phone number
+    gender:
+      type: string
+      description: gender
+    dob:
+      type: string
+      description: date of birth
+Login:
+  type: object
+  properties:
+    username:
+      type: string
+      description: email for the account
+    password:
+      type: string
+      description: password for the account

@@ -1,0 +1,7 @@
+CredentialType:
+  name: type
+  in: query
+  required: false
+  description: Credential type to be updated
+  schema:
+    type: string

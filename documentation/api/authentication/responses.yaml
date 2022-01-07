@@ -1,0 +1,42 @@
+NoContent:
+  description: no content
+BadRequest:
+  description: Bad request
+  content:
+    application/json:
+      schema:
+        $ref: "schemas.yaml#/ErrorResponse"
+      example:
+        status: 400
+        endpoint: requested endpoint
+        error: There was an issue with the request.
+Unauthorized:
+  description: Unauthorized request made to the server. Access token may be missing.
+  content:
+    application/json:
+      schema:
+        $ref: "schemas.yaml#/ErrorResponse"
+      example:
+        status: 401
+        endpoint: requested endpoint
+        error: Unauthorized request. Please authenticate your client.
+NotFound:
+  description: Not found
+  content:
+    application/json:
+      schema:
+        $ref: "schemas.yaml#/ErrorResponse"
+      example:
+        status: 404
+        endpoint: requested endpoint
+        error: The resources requested was not found.
+InternalServerError:
+  description: Internal Server Error
+  content:
+    application/json:
+      schema:
+        $ref: "schemas.yaml#/ErrorResponse"
+      example:
+        status: 500
+        endpoint: requested endpoint
+        error: There was an internal server please try again.

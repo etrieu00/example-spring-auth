@@ -1,0 +1,205 @@
+/auth/signup:
+  post:
+    tags:
+      - Authentication
+    summary: "Account signup"
+    requestBody:
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: 'schemas.yaml#/Login'
+              - $ref: 'schemas.yaml#/SignUp'
+          example:
+            username: example@gmail.com
+            password: password
+            firstname: John
+            lastname: Doe
+            phone: 000-000-0000
+            gender: MALE
+            dob: 2021-01-01
+    responses:
+      "200":
+        description: "Sign up for the user"
+        content:
+          application/json:
+            schema:
+              $ref: 'schemas.yaml#/Auth'
+            example:
+              access: access token
+              refres: refresh token
+      "400":
+        $ref: "responses.yaml#/BadRequest"
+      "500":
+        $ref: "responses.yaml#/InternalServerError"
+/auth/login:
+  post:
+    tags:
+      - Authentication
+    summary: "Account login"
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: 'schemas.yaml#/Login'
+          example:
+            username: example@gmail.com
+            password: password
+    responses:
+      "200":
+        description: "User login"
+        content:
+          application/json:
+            schema:
+              $ref: 'schemas.yaml#/Auth'
+            example:
+              access: access token
+              refres: refresh token
+      "400":
+        $ref: "responses.yaml#/BadRequest"
+      "401":
+        $ref: "responses.yaml#/Unauthorized"
+      "500":
+        $ref: "responses.yaml#/InternalServerError"
+/auth/user:
+  put:
+    tags:
+      - Authentication
+    summary: "Update user credentials"
+    parameters:
+      - name: "type"
+        in: "query"
+        required: true
+        schema:
+          type: "string"
+    responses:
+      "200":
+        description: "OK"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: number
+                  description: status code
+                message:
+                  type: string
+                  description: message
+                data:
+                  $ref: 'schemas.yaml#/Auth'
+            example:
+              status: 200
+              message: Update successful.
+              data:
+                access: access token
+                refres: refresh token
+      "204":
+        $ref: "responses.yaml#/NoContent"
+      "401":
+        $ref: "responses.yaml#/Unauthorized"
+      "404":
+        $ref: "responses.yaml#/NotFound"
+      "500":
+        $ref: "responses.yaml#/InternalServerError"
+/user/profile:
+  put:
+    tags:
+      - User
+    summary: "Updates the user profile"
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: 'schemas.yaml#/SignUp'
+          example:
+            firstname: John
+            lastname: Doe
+            phone: 000-000-0000
+            gender: MALE
+            dob: 2021-01-01
+    responses:
+      "200":
+        description: "Update the user profile"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: number
+                  description: status code
+                message:
+                  type: string
+                  description: message
+                data:
+                  $ref: 'schemas.yaml#/SignUp'
+            example:
+              status: 200
+              message: Update successful.
+              data:
+                firstname: John
+                lastname: Doe
+                phone: 000-000-0000
+                gender: MALE
+                dob: 2021-01-01
+      "400":
+        $ref: "responses.yaml#/BadRequest"
+      "401":
+        $ref: "responses.yaml#/Unauthorized"
+      "404":
+        $ref: "responses.yaml#/NotFound"
+      "500":
+        $ref: "responses.yaml#/InternalServerError"
+  get:
+    tags:
+      - User
+    summary: "Retrieve user profile information"
+    responses:
+      "200":
+        description: "Profile information for the user"
+        content:
+          application/json:
+            schema:
+              $ref: 'schemas.yaml#/SignUp'
+            example:
+              firstname: John
+              lastname: Doe
+              phone: 000-000-0000
+              gender: MALE
+              dob: 2021-01-01
+      "204":
+        $ref: "responses.yaml#/NoContent"
+      "400":
+        $ref: "responses.yaml#/BadRequest"
+      "401":
+        $ref: "responses.yaml#/Unauthorized"
+      "404":
+        $ref: "responses.yaml#/NotFound"
+      "500":
+        $ref: "responses.yaml#/InternalServerError"
+/auth/refresh:
+  post:
+    tags:
+      - Authentication
+    summary: "Issue a new access token and refresh token"
+    parameters:
+      - name: "token"
+        in: "query"
+        required: true
+        schema:
+          type: "string"
+    responses:
+      "200":
+        description: "Request a new access token, a refresh token will also be provided if it is expiring soon"
+        content:
+          application/json:
+            schema:
+              $ref: 'schemas.yaml#/Auth'
+            example:
+              access: access token
+              refres: refresh token
+      "400":
+        $ref: "responses.yaml#/BadRequest"
+      "500":
+        $ref: "responses.yaml#/InternalServerError"

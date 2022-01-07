@@ -1,0 +1,21 @@
+openapi: 3.0.0
+info:
+  title: Authentication Service
+  description: Authentication Service API documentation
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080/api/v1/auth/
+tags:
+  - name: Authentication
+    description: Authentication api
+paths:
+  /auth/login:
+    $ref: "paths.yaml#/~1auth~1login"
+  /auth/signup:
+    $ref: "paths.yaml#/~1auth~1signup"
+  /auth/user:
+    $ref: "paths.yaml#/~1auth~1user"
+  /user/profile:
+    $ref: "paths.yaml#/~1user~1profile"
+  /auth/refresh:
+    $ref: "paths.yaml#/~1auth~1refresh"

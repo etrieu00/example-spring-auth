@@ -1,0 +1,7 @@
+logging:
+  level:
+    ROOT: INFO
+    org:
+      springframework:
+        jdbc:
+          core: INFO
