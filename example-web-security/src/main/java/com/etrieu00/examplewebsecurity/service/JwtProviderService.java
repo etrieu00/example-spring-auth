@@ -55,7 +55,6 @@ public class JwtProviderService {
       .claim("role", user.getUserRoles().stream().map(AppRole::getRoleName).collect(Collectors.toList()))
       .claim("email", user.getUserEmail())
       .claim("refresh_url", url.get("refresh"))
-      .claim("entitlements", url.get("entitlement"))
       .setIssuedAt(Date.from(now))
       .setExpiration(Date.from(now.plus(expiration.get("access"), ChronoUnit.DAYS)))
       .signWith(REFRESH_SECRET)
