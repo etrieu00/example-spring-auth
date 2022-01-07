@@ -33,7 +33,7 @@ services:
       - FLYWAY_USER=${POSTGRES_USER}
       - FLYWAY_PASSWORD=${POSTGRES_PASSWORD}
       - FLYWAY_URL=jdbc:postgresql://postgres:5432/${POSTGRES_DATABASE_NAME}
-      - FLYWAY_SCHEMAS=${MIGRATION_BUDGET_SCHEMA}
+      - FLYWAY_SCHEMAS=${MIGRATION_SCHEMA}
       - FLYWAY_LOCATIONS=filesystem:/flyway/sql/
       - FLYWAY_CONNECT_RETRIES=60
       - FLYWAY_SQL_MIGRATION_PREFIX=V
@@ -41,6 +41,6 @@ services:
       - FLYWAY_VALIDATE_MIGRATION_NAMING=true
     command: migrate
     volumes:
-      - ${MIGRATION_BUDGET_SRC}:/flyway/sql
+      - ${MIGRATION_SRC}:/flyway/sql
     depends_on:
       - postgres
