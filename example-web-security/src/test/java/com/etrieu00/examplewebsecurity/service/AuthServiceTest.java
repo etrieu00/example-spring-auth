@@ -8,7 +8,6 @@ import com.etrieu00.examplewebsecurity.repository.AppUserRepository;
 import com.etrieu00.examplewebsecurity.request.CredentialUpdateRequest;
 import com.etrieu00.examplewebsecurity.request.LoginRequest;
 import com.etrieu00.examplewebsecurity.request.SignUpRequest;
-import com.etrieu00.examplewebsecurity.util.enumeration.Gender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -48,7 +47,7 @@ class AuthServiceTest {
       .setUserEmail("example@example.com")
       .setProfile(AppProfile.build(profile -> profile
         .setDateOfBirth(LocalDate.now())
-        .setGender(Gender.OTHER.name())
+        .setGender("OTHER")
         .setLastName("Doe")
         .setFirstName("John")
         .setPhoneNumber("0123456789"))));

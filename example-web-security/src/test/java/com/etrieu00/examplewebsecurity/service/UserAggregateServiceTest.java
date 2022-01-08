@@ -4,7 +4,6 @@ import com.etrieu00.examplewebsecurity.entity.AppProfile;
 import com.etrieu00.examplewebsecurity.entity.AppUser;
 import com.etrieu00.examplewebsecurity.repository.AppUserRepository;
 import com.etrieu00.examplewebsecurity.request.ProfileUpdateRequest;
-import com.etrieu00.examplewebsecurity.util.enumeration.Gender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,7 +41,7 @@ class UserAggregateServiceTest {
       .setUserEmail("example@example.com")
       .setProfile(AppProfile.build(profile -> profile
         .setDateOfBirth(LocalDate.parse("2022-01-01"))
-        .setGender(Gender.OTHER.name())
+        .setGender("OTHER")
         .setLastName("Doe")
         .setFirstName("John")
         .setPhoneNumber("0123456789"))));
@@ -53,7 +52,7 @@ class UserAggregateServiceTest {
     when(service.getUuidFromSecurityContext()).thenReturn(Optional.of(dummy.getUuid()));
     when(repository.findByUuid(anyString())).thenReturn(Optional.of(dummy));
     when(repository.save(any())).thenReturn(dummy);
-    var request = new ProfileUpdateRequest("Mary", "Jane", "0000000000", Gender.FEMALE.name(), LocalDate.parse("2021-01-01"));
+    var request = new ProfileUpdateRequest("Mary", "Jane", "0000000000", "FEMALE", LocalDate.parse("2021-01-01"));
     var results = service.updateUserProfile(request);
     verify(repository, times(1)).save(any());
     assertEquals("Mary", results.getFirstname());
@@ -70,7 +69,7 @@ class UserAggregateServiceTest {
     var results = service.profileInformation();
     assertEquals("John", results.getFirstname());
     assertEquals("Doe", results.getLastname());
-    assertEquals(Gender.OTHER.name(), results.getGender());
+    assertEquals("OTHER", results.getGender());
     assertEquals("0123456789", results.getPhone());
     assertEquals(LocalDate.parse("2022-01-01"), results.getDob());
   }
